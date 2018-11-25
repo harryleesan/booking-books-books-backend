@@ -1,0 +1,28 @@
+version: '3.1'
+services:
+
+  mongo:
+    image: mongo:3.2-jessie
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - books-backend-mongo:/data/db
+    container_name: mongo
+
+  mongo-express:
+    image: mongo-express:0.49
+    restart: always
+    ports:
+      - "8082:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+    links:
+      - mongo
+    container_name: mongo-express
+
+volumes:
+  books-backend-mongo:
+    external: true
