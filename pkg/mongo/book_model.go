@@ -2,8 +2,8 @@ package mongo
 
 import (
 	"booking-books/books-backend/pkg"
-	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
+	"github.com/globalsign/mgo"
+	"github.com/globalsign/mgo/bson"
 )
 
 type bookModel struct {
@@ -14,7 +14,7 @@ type bookModel struct {
 
 func bookModelIndex() mgo.Index {
 	return mgo.Index{
-		Key:        []string{"title"},
+		Key:        []string{"title", "author"},
 		Unique:     true,
 		DropDups:   true,
 		Background: true,

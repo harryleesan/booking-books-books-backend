@@ -2,8 +2,9 @@ package mongo
 
 import (
 	"booking-books/books-backend/pkg"
-	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
+	"fmt"
+	"github.com/globalsign/mgo"
+	"github.com/globalsign/mgo/bson"
 )
 
 type BookService struct {
@@ -25,12 +26,12 @@ func (p *BookService) CreateBook(b *root.Book) error {
 
 func (p *BookService) GetByTitle(title string) (*root.Book, error) {
 	model := bookModel{}
-	err := p.collection.Find(bson.M{"title": title}).One(&model)
+	err := p.collection.Find(bson.M{"title": bson.RegEx{fmt.Sprintf(".*%s.*", title), "i"}}).One(&model)
 	return model.toRootBook(), err
 }
 
 func (p *BookService) GetByAuthor(author string) (*root.Book, error) {
 	model := bookModel{}
-	err := p.collection.Find(bson.M{"author": author}).One(&model)
+	err := p.collection.Find(bson.M{"author": bson.RegEx{fmt.Sprintf(".*%s.*", author), "i"}}).One(&model)
 	return model.toRootBook(), err
 }
