@@ -35,3 +35,9 @@ func (p *BookService) GetByAuthor(author string) (*root.Book, error) {
 	err := p.collection.Find(bson.M{"author": bson.RegEx{fmt.Sprintf(".*%s.*", author), "i"}}).One(&model)
 	return model.toRootBook(), err
 }
+
+func (p *BookService) GetById(id string) (*root.Book, error) {
+	model := bookModel{}
+	err := p.collection.Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&model)
+	return model.toRootBook(), err
+}

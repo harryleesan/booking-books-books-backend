@@ -10,4 +10,5 @@ type BookService interface {
 	CreateBook(b *Book) error
 	GetByTitle(title string) (*Book, error)
 	GetByAuthor(author string) (*Book, error)
+	GetById(id string) (*Book, error)
 }
