@@ -15,7 +15,8 @@ type Server struct {
 
 func NewServer(b root.BookService) *Server {
 	s := Server{router: mux.NewRouter()}
-	NewBookRouter(b, s.NewSubrouter("/book"))
+	BookRouter(b, s.NewSubrouter("/book"))
+	MetricsRouter(s.router)
 	return &s
 }
 

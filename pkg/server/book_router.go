@@ -13,7 +13,7 @@ type bookRouter struct {
 	bookService root.BookService
 }
 
-func NewBookRouter(b root.BookService, router *mux.Router) *mux.Router {
+func BookRouter(b root.BookService, router *mux.Router) *mux.Router {
 	bookRouter := bookRouter{b}
 	router.HandleFunc("/", bookRouter.createBookHandler).Methods("PUT")
 	router.HandleFunc("/title/{title}", bookRouter.getBookHandler).Methods("GET")
@@ -47,6 +47,7 @@ func (br *bookRouter) getBookHandler(w http.ResponseWriter, r *http.Request) {
 		Error(w, http.StatusNotFound, err.Error())
 		return
 	}
+	getBooks.WithLabelValues("200", "GET", "title").Inc()
 	Json(w, http.StatusOK, book)
 }
 
@@ -59,6 +60,7 @@ func (br *bookRouter) getAuthorHandler(w http.ResponseWriter, r *http.Request) {
 		Error(w, http.StatusNotFound, err.Error())
 		return
 	}
+	getBooks.WithLabelValues("200", "GET", "author").Inc()
 	Json(w, http.StatusOK, book)
 }
 
@@ -71,6 +73,7 @@ func (br *bookRouter) getIdHandler(w http.ResponseWriter, r *http.Request) {
 		Error(w, http.StatusNotFound, err.Error())
 		return
 	}
+	getBooks.WithLabelValues("200", "GET", "id").Inc()
 	Json(w, http.StatusOK, book)
 }
 
