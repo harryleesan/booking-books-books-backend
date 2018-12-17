@@ -1,5 +1,13 @@
 version: '3.1'
 services:
+  books-backend:
+    build: ./
+    image: halosan/books-backend:latest
+    links:
+      - mongo
+    ports:
+      - "8080:8080"
+    container_name: books-backend
 
   mongo:
     image: mongo:3.2-jessie
@@ -11,7 +19,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - books-backend-mongo:/data/db
-    container_name: mongo
+    container_name: books-backend-mongo
 
   mongo-express:
     image: mongo-express:0.49
@@ -23,7 +31,7 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: password
     links:
       - mongo
-    container_name: mongo-express
+    container_name: books-backend-mongo-express
 
 volumes:
   books-backend-mongo:

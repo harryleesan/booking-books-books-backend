@@ -1,7 +1,7 @@
 package mongo
 
 import (
-	"booking-books/books-backend/pkg"
+	"booking-books-books-backend/pkg"
 	"fmt"
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"

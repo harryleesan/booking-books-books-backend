@@ -1,14 +1,14 @@
 package mongo_test
 
 import (
-	"booking-books/books-backend/pkg"
-	"booking-books/books-backend/pkg/mongo"
+	"booking-books-books-backend/pkg"
+	"booking-books-books-backend/pkg/mongo"
 	"log"
 	"testing"
 )
 
 const (
-	mongoUrl           = "mongodb://root:password@localhost:27017"
+	mongoUrl           = "mongodb://root:password@mongo:27017"
 	dbName             = "test_db"
 	bookCollectionName = "books"
 )

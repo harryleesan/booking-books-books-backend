@@ -1,7 +1,7 @@
 package server
 
 import (
-	"booking-books/books-backend/pkg"
+	"booking-books-books-backend/pkg"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"log"
