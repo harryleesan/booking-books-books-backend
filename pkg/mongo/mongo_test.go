@@ -40,7 +40,7 @@ func createBook_should_insert_book_into_mongo(t *testing.T) {
 	}
 
 	// Act
-	err = bookService.Create(&book)
+	err = bookService.CreateBook(&book)
 
 	// Assert
 	if err != nil {
