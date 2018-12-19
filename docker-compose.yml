@@ -2,7 +2,7 @@ version: '3.1'
 services:
   books-backend:
     build: ./
-    image: halosan/books-backend:latest
+    image: halosan/booking-books-books-backend:latest
     links:
       - mongo
     ports:
