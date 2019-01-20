@@ -20,11 +20,11 @@ func NewServer(b root.BookService) *Server {
 }
 
 func (s *Server) Start() {
-	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
+	// headersOk := handlers.AllowedHeaders([]string{"*"})
 	originsOk := handlers.AllowedOrigins([]string{"*"})
 	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 	log.Println("Listening on port 8080")
-	if err := http.ListenAndServe(":8080", handlers.CORS(originsOk, headersOk, methodsOk)(s.router)); err != nil {
+	if err := http.ListenAndServe(":8080", handlers.CORS(originsOk, methodsOk)(s.router)); err != nil {
 		log.Fatal("http.ListenAndServe: ", err)
 	}
 }
