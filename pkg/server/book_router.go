@@ -19,6 +19,7 @@ func BookRouter(b root.BookService, router *mux.Router) *mux.Router {
 	router.HandleFunc("/title/{title}", bookRouter.getBookHandler).Methods("GET")
 	router.HandleFunc("/author/{author}", bookRouter.getAuthorHandler).Methods("GET")
 	router.HandleFunc("/id/{id}", bookRouter.getIdHandler).Methods("GET")
+	router.HandleFunc("/all", bookRouter.getAllBooksHandler).Methods("GET")
 	return router
 }
 
@@ -75,6 +76,16 @@ func (br *bookRouter) getIdHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	getBooks.WithLabelValues("200", "GET", "id").Inc()
 	Json(w, http.StatusOK, book)
+}
+
+func (br *bookRouter) getAllBooksHandler(w http.ResponseWriter, r *http.Request) {
+	books, err := br.bookService.GetAll()
+	if err != nil {
+		Error(w, http.StatusNotFound, err.Error())
+		return
+	}
+	getBooks.WithLabelValues("200", "GET", "all").Inc()
+	Json(w, http.StatusOK, books)
 }
 
 func decodeBook(r *http.Request) (root.Book, error) {
